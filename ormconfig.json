@@ -1,0 +1,9 @@
+{
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "type": "mongodb",
+    "synchronize": true,
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true,
+    "logging": true,
+    "url": "mongodb+srv://ccute:V4Ei4CbCScgRIx90@cluster0-vytym.mongodb.net/test?retryWrites=true&w=majority"
+}
