@@ -2,6 +2,37 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input BattleInput {
+  Battleid: String!
+  Battlename: String!
+  Battlecover: String!
+  Battlestatus: String!
+  vj1_ccuteid: Float!
+  vj2_ccuteid: Float!
+  vj1_score: Float!
+  vj2_score: Float!
+}
+
+type BattleType {
+  id: ID!
+  Battleid: String!
+  Battlename: String!
+  Battlecover: String!
+  Battlestatus: String!
+  vj1_ccuteid: Float!
+  vj2_ccuteid: Float!
+  vj1_score: Float!
+  vj2_score: Float!
+}
+
+type Mutation {
+  createBattle(input: BattleInput!): BattleType!
+}
+
 type Query {
-  hello: String!
+  getBalltle: [BattleType!]!
+}
+
+type Subscription {
+  battleCreate: [BattleType!]!
 }
