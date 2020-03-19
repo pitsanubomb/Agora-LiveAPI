@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Battle } from "./entity/battles.entity";
 import { MongoRepository } from "typeorm";
@@ -21,9 +21,27 @@ export class BattlesService {
   }
   async findall(): Promise<any> {
     try {
-      return this.battleRepo.find();
+      const res = await this.battleRepo.find();
+      return res;
     } catch (error) {
       throwError(error);
+    }
+  }
+
+  async delBattle(id: any): Promise<any> {
+    try {
+      return await this.battleRepo.delete(id);
+    } catch (error) {
+      throwError(error);
+    }
+  }
+
+  async clearallBattle():Promise<any>
+  {
+    try {
+      return await this.battleRepo.clear();
+    } catch (error) {
+      throwError(error)
     }
   }
 }
