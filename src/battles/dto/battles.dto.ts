@@ -14,7 +14,7 @@ export class BattleType {
   readonly Battlestatus: string;
   @Field()
   readonly vj1_ccuteid: number;
-  @Field()
+  @Field({ nullable: true })
   readonly vj2_ccuteid: number;
   @Field()
   readonly vj1_score: number;

@@ -1,4 +1,4 @@
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Int } from "@nestjs/graphql";
 
 @InputType()
 export class BattleInput {
@@ -10,9 +10,9 @@ export class BattleInput {
   readonly Battlecover: string;
   @Field()
   readonly Battlestatus: string;
-  @Field()
+  @Field(() => Int)
   readonly vj1_ccuteid: number;
-  @Field()
+  @Field(() => Int)
   readonly vj2_ccuteid: number;
   @Field()
   readonly vj1_score: number;

@@ -7,8 +7,8 @@ input BattleInput {
   Battlename: String!
   Battlecover: String!
   Battlestatus: String!
-  vj1_ccuteid: Float!
-  vj2_ccuteid: Float!
+  vj1_ccuteid: Int!
+  vj2_ccuteid: Int!
   vj1_score: Float!
   vj2_score: Float!
 }
@@ -20,13 +20,15 @@ type BattleType {
   Battlecover: String!
   Battlestatus: String!
   vj1_ccuteid: Float!
-  vj2_ccuteid: Float!
+  vj2_ccuteid: Float
   vj1_score: Float!
   vj2_score: Float!
 }
 
 type Mutation {
   createBattle(input: BattleInput!): BattleType!
+  deleteBattle(id: String!): Boolean!
+  clearallBattle: Boolean!
 }
 
 type Query {
@@ -34,5 +36,5 @@ type Query {
 }
 
 type Subscription {
-  battleCreate: [BattleType!]!
+  battleList: [BattleType!]!
 }
