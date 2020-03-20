@@ -9,15 +9,21 @@ export class Battle {
   @Column()
   Battlename: string;
   @Column()
-  Battlecover: string;
-  @Column()
   Battlestatus: string;
   @Column()
   vj1_ccuteid: number;
   @Column()
   vj2_ccuteid: number;
   @Column()
+  vj1_cover: string;
+  @Column()
+  vj2_cover: string;
+  @Column()
   vj1_score: number;
   @Column()
   vj2_score: number;
+  @Column()
+  battletime: Date;
+  @Column()
+  channelid: String;
 }
