@@ -5,25 +5,36 @@
 input BattleInput {
   Battleid: String!
   Battlename: String!
-  Battlecover: String!
   Battlestatus: String!
   vj1_ccuteid: Int!
   vj2_ccuteid: Int!
+  vj1_cover: String!
+  vj2_cover: String!
   vj1_score: Float!
   vj2_score: Float!
+  battletime: DateTime!
+  channelid: String!
 }
 
 type BattleType {
   id: ID!
   Battleid: String!
   Battlename: String!
-  Battlecover: String!
   Battlestatus: String!
   vj1_ccuteid: Float!
   vj2_ccuteid: Float
+  vj1_cover: String!
+  vj2_cover: String!
   vj1_score: Float!
   vj2_score: Float!
+  battletime: DateTime!
+  channelid: String!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Mutation {
   createBattle(input: BattleInput!): BattleType!
