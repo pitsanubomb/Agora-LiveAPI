@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Header, Post, Res } from "@nestjs/common";
+import { Controller, Get, Param, Header, Post, Res, Put } from "@nestjs/common";
 import { Response } from "express";
 import { BattlesService } from "./battles.service";
 import { EventEmitter } from "events";
@@ -24,8 +24,12 @@ export class BattlesController {
   }
 
   @Get()
-  async findall():Promise<any[]>
-  {
+  async findall(): Promise<any[]> {
     return this.battleService.findall();
+  }
+
+  @Put("updatestatus/:id/:status")
+  async updatestatus(@Param("id") id: string, @Param("status") status: string) {
+    return this.battleService.updateBattleStatus(id, status);
   }
 }

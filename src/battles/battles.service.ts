@@ -36,12 +36,21 @@ export class BattlesService {
     }
   }
 
-  async clearallBattle():Promise<any>
-  {
+  async clearallBattle(): Promise<any> {
     try {
       return await this.battleRepo.clear();
     } catch (error) {
-      throwError(error)
+      throwError(error);
+    }
+  }
+
+  async updateBattleStatus(id: string, status: string): Promise<any> {
+    try {
+      const body = await this.battleRepo.findOne(id);
+      body.Battlestatus = status;
+      return await this.battleRepo.save(body);
+    } catch (error) {
+      throwError(error);
     }
   }
 }
