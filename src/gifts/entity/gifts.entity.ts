@@ -1,5 +1,4 @@
 import { Entity, ObjectIdColumn, Column } from "typeorm";
-import { GiftsList } from "../dto/giftlist.dto";
 
 @Entity()
 export class Gifts {
@@ -7,6 +6,24 @@ export class Gifts {
   id: number;
   @Column()
   Battleid: string;
-  @Column((type) => GiftsList)
-  giftlist: GiftsList[];
+  @Column()
+  transectionid: string;
+  @Column()
+  giftid: number;
+  @Column()
+  ccuteid: number;
+  @Column()
+  vjid: number;
+  @Column()
+  price: number;
+  @Column()
+  expvj: number;
+  @Column()
+  expuser: number;
+  @Column()
+  vjrecivecoin: number;
+  @Column()
+  agencyrecivecoin: number;
+  @Column()
+  ccuterecivecoin: number;
 }

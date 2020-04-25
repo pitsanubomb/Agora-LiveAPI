@@ -1,7 +1,7 @@
-import { CreateGift } from "src/gifts/dto/creategift.dto";
+import { Gifts } from "src/gifts/entity/gifts.entity";
 
 export class AddGiftEvent {
     constructor(
-        public readonly gift:CreateGift
+        public readonly gift:Gifts
     ){}
 }

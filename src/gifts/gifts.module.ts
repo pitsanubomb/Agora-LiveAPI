@@ -9,6 +9,7 @@ import { Battle } from "src/battles/entity/battles.entity";
 import { SendGiftSaga } from "./saga/sendgift.saga";
 import { AddGiftEvent } from "./events/impl/addgift.event";
 import { SendGiftSuccessHandler } from "./command/handlers/sendgift-success.handler";
+import { GenUidService } from "src/core/genuid.service";
 
 
 @Module({
@@ -19,6 +20,7 @@ import { SendGiftSuccessHandler } from "./command/handlers/sendgift-success.hand
     SendGiftSuccessHandler,
     AddGiftEvent,
     SendGiftSaga,
+    GenUidService
   ],
   controllers: [GiftController],
 })

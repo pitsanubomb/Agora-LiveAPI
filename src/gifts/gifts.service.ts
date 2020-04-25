@@ -5,7 +5,6 @@ import { MongoRepository } from "typeorm";
 import { GiftsList } from "./dto/giftlist.dto";
 import { Battle } from "src/battles/entity/battles.entity";
 import { Gift } from "./models/gifts.models";
-import { CreateGift } from "./dto/creategift.dto";
 
 @Injectable()
 export class GiftSerivce {
@@ -15,23 +14,12 @@ export class GiftSerivce {
     private readonly battleRepo: MongoRepository<Battle>
   ) {}
 
-  async addGift(battleid: string, giftlist: GiftsList): Promise<any> {
+  async addGift(battleid: string, giftlist: GiftsList): Promise<Gift> {
     try {
       let res: any;
-      const gift = await this.giftRepo.findOne({
-        where: {
-          Battleid: battleid,
-        },
-      });
-      if (this.giftRepo.hasId(gift)) {
-        gift.giftlist = [giftlist];
-        res = await this.giftRepo.save(gift);
-      } else {
-        const body = new Gifts();
-        body.Battleid = battleid;
-        body.giftlist = [giftlist];
-        res = await this.giftRepo.save(body);
-      }
+      const body = giftlist;
+      body.Battleid = battleid;
+      res = await this.giftRepo.save(body);
       return new Gift(res);
     } catch (error) {
       throw new HttpException(
@@ -63,6 +51,47 @@ export class GiftSerivce {
           Battleid: id,
         },
       });
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: "ไม่สามารถทำรายการได้ : " + error,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getGiftByBattleId(battleid: string): Promise<any> {
+    try {
+      return await this.giftRepo.find({
+        where: {
+          Battleid: battleid,
+        },
+      });
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: "ไม่สามารถทำรายการได้ : " + error,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async updateScore(
+    vjid: number,
+    battleid: string,
+    score: number
+  ): Promise<any> {
+    try {
+      const res = await this.getBattleId(battleid);
+      if (res.vj1_ccuteid === vjid) {
+        res.vj1_score = res.vj1_score + score;
+        return await this.battleRepo.save(res);
+      } else {
+        res.vj2_score = res.vj2_score + score;
+        return await this.battleRepo.save(res);
+      }
     } catch (error) {
       throw new HttpException(
         {

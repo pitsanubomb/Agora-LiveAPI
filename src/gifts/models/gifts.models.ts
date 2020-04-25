@@ -1,9 +1,9 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 import { AddGiftEvent } from "../events/impl/addgift.event";
-import { CreateGift } from "../dto/creategift.dto";
+import { Gifts } from "../entity/gifts.entity";
 
 export class Gift extends AggregateRoot {
-  constructor(private readonly gift:CreateGift) {
+  constructor(private readonly gift:Gifts) {
     super();
   }
 

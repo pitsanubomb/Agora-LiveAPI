@@ -6,7 +6,6 @@ import { map } from "rxjs/operators";
 import { AddGiftEvent } from "../events/impl/addgift.event";
 import { SendGiftSuccessCommand } from "../command/impl/sendgift-success.command";
 
-
 @Injectable()
 export class SendGiftSaga {
   @Saga()
@@ -15,7 +14,11 @@ export class SendGiftSaga {
       ofType(AddGiftEvent),
       map((event) => {
         console.log(clc.redBright("Add gift complete"));
-        return new SendGiftSuccessCommand(event.gift.id,event.gift.Battleid,event.gift.giftlist)
+        return new SendGiftSuccessCommand(
+          event.gift.id,
+          event.gift.Battleid,
+          event.gift.transectionid
+        );
       })
     );
   };

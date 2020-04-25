@@ -15,7 +15,7 @@ export class SendGiftHandler implements ICommandHandler<SendGiftCommand> {
 
     const { battleid, giftlist } = command;
     const gift = this.publisher.mergeObjectContext(
-      await this.giftService.addGift(battleid, giftlist)
+      await this.giftService.addGift(battleid,giftlist)
     );
     gift.sendGift();
     gift.commit();

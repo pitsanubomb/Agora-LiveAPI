@@ -1,4 +1,6 @@
 export class GiftsList {
+  Battleid: string;
+  transectionid: string;
   giftid: number;
   ccuteid: number;
   vjid: number;
