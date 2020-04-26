@@ -10,7 +10,6 @@ import {
 } from "@nestjs/common";
 import { Response } from "express";
 import { GiftSerivce } from "./gifts.service";
-import { GiftsList } from "./dto/giftlist.dto";
 import { EventEmitter } from "events";
 import { CommandBus } from "@nestjs/cqrs";
 import { SendGiftCommand } from "./command/impl/sendgift.command";
@@ -44,7 +43,24 @@ export class GiftController {
     res.vj2scorebar = Math.round(
       (battle.vj2_score / (battle.vj1_score + battle.vj2_score)) * 100
     );
+    ev.emit(id, res);
     return res;
+  }
+
+  @Header("Content-Type", "text/event-stream")
+  @Header("Connection", "keep-alive")
+  @Header("Cache-Control", "default")
+  @Get("battle/:id/score")
+  async getScore(@Res() res: Response, @Param("id") id: string): Promise<any> {
+    ev.on(id, (data) => {
+      const body = {
+        vj1score: data.vj1score,
+        vj2score: data.vj2score,
+        vj1scorebar: data.vj1scorebar,
+        vj2scorebar: data.vj2scorebar,
+      };
+      res.write(`data:${JSON.stringify(body)}\n\n`);
+    });
   }
 
   @Get("battle/:id")
