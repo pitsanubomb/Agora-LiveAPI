@@ -61,6 +61,7 @@ export class GiftController {
       };
       res.write(`data:${JSON.stringify(body)}\n\n`);
     });
+    res.write("");
   }
 
   @Get("battle/:id")
