@@ -1,15 +1,18 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, HttpService } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Battle } from "./entity/battles.entity";
 import { MongoRepository } from "typeorm";
 import { throwError } from "rxjs";
 import { BattleInput } from "./input/battles.input";
+import { map } from "rxjs/internal/operators/map";
+import { async } from "rxjs/internal/scheduler/async";
 
 @Injectable()
 export class BattlesService {
   constructor(
     @InjectRepository(Battle)
-    private readonly battleRepo: MongoRepository<Battle>
+    private readonly battleRepo: MongoRepository<Battle>,
+    private httpService: HttpService
   ) {}
   async create(createBattle: BattleInput): Promise<Battle> {
     try {
@@ -23,6 +26,46 @@ export class BattlesService {
     try {
       const res = await this.battleRepo.find();
       return res;
+    } catch (error) {
+      throwError(error);
+    }
+  }
+
+  async findallwithLive() {
+    try {
+      const res = await this.battleRepo.find({ Battlestatus: "live" });
+      return res;
+    } catch (error) {
+      throwError(error);
+    }
+  }
+
+  async findWithId(id: number) {
+    try {
+      const res = await this.battleRepo.findOne({ Battleid: id.toString() });
+      return res;
+    } catch (error) {
+      throwError(error);
+    }
+  }
+
+  async getLiveBattle(auth: string, c: number, size: number) {
+    const header = {
+      headers: {
+        Authorization: auth,
+      },
+    };
+    try {
+      return this.httpService
+        .get(
+          `https://api.ccutelive.com/backoffice/api/v1/battles?CurrentPage=${c}&PageSize=${size}`,
+          header
+        )
+        .pipe(
+          map((res) => {
+            return res.data;
+          })
+        );
     } catch (error) {
       throwError(error);
     }
