@@ -6,7 +6,6 @@ export class Firebase {
   constructor() {}
   onModuleInit() {
     this.firebaseInit();
-    console.log(`The Firebase  has been initialized.`);
   }
 
   async firebaseInit() {
@@ -20,6 +19,23 @@ export class Firebase {
       .messaging()
       .send(FirebaseMessage)
       .then((res) => res)
+      .catch((error) => {
+        throw new HttpException(
+          {
+            message: "ไม่สามารถทำรายการได้ : " + error,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR
+        );
+      });
+  }
+
+  async firebaseSendMassageMulti(FirebaseMessage: any) {
+    return await admin
+      .messaging()
+      .sendMulticast(FirebaseMessage)
+      .then((res) => {
+        return res;
+      })
       .catch((error) => {
         throw new HttpException(
           {
