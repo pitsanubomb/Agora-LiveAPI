@@ -8,7 +8,7 @@ import {
 } from "@nestjs/common";
 import { Firebase } from "src/core/firebase.service";
 
-@Controller("nontification")
+@Controller("nontification")  
 export class NontificationController {
   constructor(private readonly firebaseAdmin: Firebase) {}
 

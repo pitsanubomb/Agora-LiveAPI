@@ -62,7 +62,7 @@ export class BattlesService {
     try {
       return this.httpService
         .get(
-          `${process.env.BACK_END_API}/battles?CurrentPage=${c}&PageSize=${size}`,
+          `${process.env.BACK_END_API}/battles/for/viewer?CurrentPage=${c}&PageSize=${size}`,
           header
         )
         .pipe(
