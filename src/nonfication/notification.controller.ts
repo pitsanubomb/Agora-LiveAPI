@@ -1,4 +1,4 @@
-import { Firebase } from "./../../core/firebase.service";
+
 import {
   Controller,
   Body,
@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
 } from "@nestjs/common";
+import { Firebase } from "src/core/firebase.service";
 
 @Controller("nontification")
 export class NontificationController {

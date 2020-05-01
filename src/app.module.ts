@@ -3,7 +3,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { BattlesModule } from "./battles/battles.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { GiftsModule } from "./gifts/gifts.module";
-import { NontificationModule } from "./gifts/nonfication/nonfication.module";
+import { NontificationModule } from "./nonfication/nonfication.module";
 
 @Module({
   imports: [
