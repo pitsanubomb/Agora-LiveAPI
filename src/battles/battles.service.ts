@@ -1,11 +1,15 @@
-import { Injectable, HttpService } from "@nestjs/common";
+import {
+  Injectable,
+  HttpService,
+  HttpException,
+  HttpStatus,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Battle } from "./entity/battles.entity";
 import { MongoRepository } from "typeorm";
 import { throwError } from "rxjs";
 import { BattleInput } from "./input/battles.input";
 import { map } from "rxjs/internal/operators/map";
-import { async } from "rxjs/internal/scheduler/async";
 
 @Injectable()
 export class BattlesService {
@@ -58,7 +62,7 @@ export class BattlesService {
     try {
       return this.httpService
         .get(
-          `https://api.ccutelive.com/backoffice/api/v1/battles?CurrentPage=${c}&PageSize=${size}`,
+          `${process.env.BACK_END_API}/battles?CurrentPage=${c}&PageSize=${size}`,
           header
         )
         .pipe(
@@ -67,7 +71,40 @@ export class BattlesService {
           })
         );
     } catch (error) {
-      throwError(error);
+      throw new HttpException(
+        {
+          message: "ไม่สามารถทำรายการได้",
+          error,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+  async getBattleReminder(auth: string, c: number, size: number) {
+    const header = {
+      headers: {
+        Authorization: auth,
+      },
+    };
+    try {
+      return this.httpService
+        .get(
+          `${process.env.BACK_END_API}/battles/reminder?CurrentPage=${c}&PageSize=${size}`,
+          header
+        )
+        .pipe(
+          map((res) => {
+            return res.data;
+          })
+        );
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: "ไม่สามารถทำรายการได้",
+          error,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
 
