@@ -37,6 +37,9 @@ export class BattlesController {
           d.Results[key].vj1score = 0;
           d.Results[key].vj2score = 0;
         }
+        d.Results[key].startTimetimestamp = Math.floor(
+          new Date(d.Results[key].StartTime).getTime() / 100
+        );
       });
       return await d;
     });
