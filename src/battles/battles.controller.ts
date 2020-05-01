@@ -24,6 +24,7 @@ export class BattlesController {
   ): Promise<any> {
     const a = this.battleService.getLiveBattle(auth, c, size);
     const s = await this.battleService.findallwithLive();
+    const bangkokoffset = 7 * 60 * 60000;
     return (await a).toPromise().then(async (d) => {
       await d.Results.forEach((element: any, key: number) => {
         const dataset: any = s.filter((res) => {
@@ -40,7 +41,10 @@ export class BattlesController {
           d.Results[key].StartTime
         );
 
-        const transDate = new Date(d.Results[key].StartTime);
+        const thisOffset =
+          new Date(d.Results[key].StartTime).getTimezoneOffset() * 60000;
+        const time = new Date(d.Results[key].StartTime).getTime();
+        const transDate = new Date(time + bangkokoffset + thisOffset);
         d.Results[key].startDateTime =
           [
             transDate
