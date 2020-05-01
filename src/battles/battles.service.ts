@@ -80,7 +80,7 @@ export class BattlesService {
       );
     }
   }
-  async getBattleReminder(auth: string, c: number, size: number) {
+  async getBattleReminder(auth: string, c: number, size: number, vjid: number) {
     const header = {
       headers: {
         Authorization: auth,
@@ -89,7 +89,7 @@ export class BattlesService {
     try {
       return this.httpService
         .get(
-          `${process.env.BACK_END_API}/battles/reminder?CurrentPage=${c}&PageSize=${size}`,
+          `${process.env.BACK_END_API}/battles/reminder?CurrentPage=${c}&PageSize=${size}&VjUserId=${vjid}`,
           header
         )
         .pipe(

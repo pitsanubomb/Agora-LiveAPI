@@ -77,9 +77,10 @@ export class BattlesController {
   async findallbattlereminder(
     @Headers("authorization") auth: string,
     @Query("CurrentPage") c: number,
-    @Query("PageSize") size: number
+    @Query("PageSize") size: number,
+    @Query("VjUserId") vjid: number
   ): Promise<any> {
-    const a = this.battleService.getBattleReminder(auth, c, size);
+    const a = this.battleService.getBattleReminder(auth, c, size, vjid);
     const s = await this.battleService.findallwithLive();
     return (await a).toPromise().then(async (d) => {
       await d.Results.forEach((element: any, key: number) => {
