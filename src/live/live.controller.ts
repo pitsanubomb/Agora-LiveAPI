@@ -12,7 +12,7 @@ export class LiveController {
 
   @Post()
   async createLive(@Body() body: any, @Headers("authorization") auth: string) {
-    const Response = await this.liveService
+    const Response: any = await this.liveService
       .createLive(body, auth)
       .toPromise()
       .then((res) => res);
@@ -21,7 +21,7 @@ export class LiveController {
         "createTokenChannel/0f12cb689dc14466a4ae2d054df077ff/30768b33a70941e4b5822b176416b7a1/" +
           body.ChannelId +
           "/" +
-          body.UserId +
+          Response.User.CcuteId +
           "/1440"
       )
       .toPromise()
